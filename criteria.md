@@ -1,134 +1,33 @@
 # Acceptance criteria — Provenance Guard
 
-Five criteria that say what "working" means for this service, written in unit 7
-**before** you built it.
+Written in unit 7 **before** the service was built or any result seen.
 
-**All five are yours.** None are given.
+## 1. False positives: at most 1 of 10 of my own pieces is labelled high-confidence AI
 
-An acceptance criterion names a number or something plainly observable. *"The
-detector is accurate"* is an opinion — and perfect AI detection isn't possible
-anyway, so it's an opinion about something nobody can deliver. *"Of 10 pieces I
-wrote myself, at most 1 is labelled high-confidence AI"* is a criterion.
+I will run 10 pieces I wrote myself (plain and ordinary prose, 80-200 words, not just formal essays) through `/submit`. At most 1 may get the guess `ai`, and this has to hold in every one of three trials.
 
-Under each, write a sentence or two on **why that target**. *"I allow at most 1
-false positive in 10 because on a writing site a wrong accusation costs more
-than a missed detection"* is a real answer.
+**Why this target:** On a writing site, wrongly accusing a real writer costs that person far more than a missed AI text costs the site. 1 in 10 is the most I'd tolerate and I'd rather hit 0; 0 would be dishonest to promise for a GPT-2 based detector.
 
-> Missing your own targets next unit costs you nothing. Setting a target so
-> easy you can't miss it does.
+## 2. Score spread: clearly-AI text averages at least 0.25 higher than clearly-human text
 
----
+Using 5 clearly-AI samples (chatbot-style output) and 5 clearly-human samples (casual, personal, uneven), the mean `confidence` of the AI group must exceed the mean of the human group by at least 0.25, and every clearly-AI sample must score above 0.5.
 
-## Pick numbers you can defend
+**Why this target:** A confidence score that only flips near 0.5 isn't confidence. A 0.25 gap is large enough that the three labels mean different things, small enough to be achievable with two cheap signals.
 
-**Cover at least three of these five areas.** They're prompts, not a form.
+## 3. Label coverage: all three labels reachable, and text I judge borderline lands in "unsure" in at least 3 of 5 cases
 
-| Area | A question it could answer |
-|---|---|
-| False positives | How often may a human's writing get called AI? |
-| Score spread | How far apart should clearly-AI and clearly-human text score? |
-| Label coverage | Is every one of your three labels actually reachable? |
-| The appeal path | Does an appeal always change status and always get recorded? |
-| Bad input | What happens when `text` is missing, empty, or enormous? |
+I must be able to produce `ai`, `human` and `unsure` from real submissions (not by calling `score_to_label` directly). Of 5 pieces I judge borderline (e.g. lightly-edited AI, formal human), at least 3 must score into the unsure band.
 
-Two things worth knowing before you pick numbers:
+**Why this target:** An unreachable label means a gap in my ranges. "Unsure" is the safe answer for a writer who might be innocent, so it must actually catch the hard cases.
 
-- **The expensive mistake is one-sided.** Missing some AI text costs the site a
-  little. Accusing a real writer costs that person a lot. A criterion that
-  treats both errors as equally bad is describing a system nobody would ship.
-- **Unit 8 tests across three trials, and the target has to hold across all
-  three.** Your first signal runs a model, so identical input can score
-  differently twice. A target of "at most 1 in 10" against trials of 2, 1, 2 is
-  a **miss**.
+## 4. The appeal path: 10 of 10 appeals on valid ids change status to under_review and are logged
 
----
-## 1.
+For 10 valid content_ids, `/appeal` must return 200 with `status: under_review` and `GET /log` must show an appeal entry for each id. An unknown content_id must return 404 and write no appeal; empty reasoning must return 400.
 
-<!-- Your criterion. It must name a number. -->
+**Why this target:** The appeal is the only recourse for a wrongly accused writer, so it is the one feature that gets a 100% target with no tolerance.
 
+## 5. Bad input: 0 crashes (no 500s) across 8 malformed submissions
 
+Missing text, missing creator_id, empty text, whitespace-only text, non-string text, a JSON body that is a list, a non-JSON body, and a 100,000-character text must each return a 4xx JSON error with an `error` field (never a 500), and each rejection is written to the audit log.
 
-**Why this target:**
-
-
-
----
-
-## 2.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
-
----
-
-## 3.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
-
----
-
-## 4.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
-
----
-
-## 5.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
-
----
-
-<!-- ─────────────────────────────────────────────────────────────────────────
-     UNIT 8 — read this before you change anything above.
-
-     If a criterion turns out to be BROKEN rather than merely unmet, you can
-     revise it, and that earns credit. But never delete or edit the original
-     line. Add the revision underneath, like this:
-
-         ## 2. Uncertain cases land in the unsure band
-
-         The system handles uncertain cases well.
-
-         **Why this target:** ...
-
-         > **Revised in unit 8:** Text I judged borderline scores between
-         > 0.4 and 0.6 in at least 4 of 5 cases.
-         >
-         > **Why revised:** "well" gave me nothing to check. I couldn't
-         > reach a verdict from it at all.
-
-     That's a revision because the criterion couldn't be MEASURED.
-
-     Lowering a target because you missed it is not a revision, and it costs
-     you the point:
-
-         ✗ "At most 1 of 10 of my own pieces flagged as AI" → "at most 3
-            of 10", because 1 of 10 turned out to be hard.
-
-     A number you missed stays where it is, gets diagnosed, and gets a fix
-     attempted. That's where the points are.
-     ───────────────────────────────────────────────────────────────────────── -->
+**Why this target:** A crash on malformed input is one of the most common real failures, and next unit's attack set will throw exactly these at it. Rejections must also leave a trace so they aren't invisible.
