@@ -18,6 +18,16 @@ you claim, so that line should read `scoring.py::combine_signals`.
 
 import config
 
+HUMAN_LABEL = "We think this was probably written by a person."
+UNSURE_LABEL = (
+    "We can't tell for sure whether a person or an AI tool wrote this. "
+    "Nothing is wrong with your work and no action has been taken."
+)
+AI_LABEL = (
+    "This looks like it may have been written with an AI tool. "
+    "We can get this wrong. If you wrote it yourself, you can appeal and a person will take a look."
+)
+
 
 def combine_signals(model_score: float, style_score: float) -> float:
     """
@@ -52,11 +62,16 @@ def combine_signals(model_score: float, style_score: float) -> float:
     The weights in config.py are placeholders. Change them, or ignore them and
     write a different rule.
     """
-    # TODO: replace this
-    return (
+    # Rule: weighted average (0.55 model / 0.45 style). If the signals differ
+    # by more than DISAGREEMENT_GAP (0.30), halve the distance from 0.5, so a
+    # split vote can't produce a confident label either way.
+    score = (
         config.WEIGHT_MODEL_SIGNAL * model_score
         + config.WEIGHT_STYLE_SIGNAL * style_score
     )
+    if abs(model_score - style_score) > config.DISAGREEMENT_GAP:
+        score = 0.5 + (score - 0.5) * config.DISAGREEMENT_SHRINK
+    return min(max(score, 0.0), 1.0)
 
 
 def score_to_label(score: float) -> tuple[str, str]:
@@ -87,10 +102,10 @@ def score_to_label(score: float) -> tuple[str, str]:
     """
     # TODO: replace this — thresholds are in config.py
     if score >= config.AI_THRESHOLD:
-        return "ai", "PLACEHOLDER — write the high-confidence AI label."
+        return "ai", AI_LABEL
     if score <= config.HUMAN_THRESHOLD:
-        return "human", "PLACEHOLDER — write the high-confidence human label."
-    return "unsure", "PLACEHOLDER — write the unsure label."
+        return "human", HUMAN_LABEL
+    return "unsure", UNSURE_LABEL
 
 
 def label_ranges() -> list[tuple[str, str]]:
