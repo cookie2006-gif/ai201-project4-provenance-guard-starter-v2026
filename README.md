@@ -206,25 +206,26 @@ Bad-input check (criterion 5): missing text, empty `creator_id`, empty text, whi
 
 ## Rate Limiting
 
-**My limits:** ___ per minute, ___ per day
+**My limits:** 10 per minute, 200 per day, on `POST /submit` (`config.py`, enforced by the `@limiter.limit` line in `app.py`; `GET /health` reports `rate_limiting: true`).
 
-**Why those numbers and not others:**
-<!-- Think about two people: a real writer submitting their own work a few
-     times an hour, and a script sending a thousand variations to map your
-     thresholds. Your numbers have to be liveable for the first and hostile to
-     the second. -->
+**Why those numbers and not others:** A real writer submits their own work a few times an hour; even a heavy revising session is a handful per minute, so 10 per minute never gets in their way and 200 per day is far above honest use. A script mapping my thresholds needs hundreds of variations: 10 per minute turns that into hours, and 200 per day caps it at a few hundred probes a day per caller. I did not go lower because the limiter also counts requests that my route rejects with a 400, and I don't want a writer who mistypes a few times to be locked out.
 
-**What a caller counts as:** <!-- per address, or per creator_id? They fail
-differently — one script can look like a thousand callers, and one household
-can look like one. -->
+**What a caller counts as:** The `creator_id` in the request body, falling back to the caller's IP address when the body has no usable `creator_id` (the starter's `rate_limit_key`). That means one script can dodge the limit by rotating `creator_id` values, and the limit is not per address. Per-address would fail the other way, since one household or school would share a single quota.
 
 **The run of status codes when I pushed past it:**
 
-<!-- python run_attacks.py --flood 15 -->
-
+```
+$ python run_attacks.py --flood 15
+200 200 200 200 200 200 200 200 200 200 429 429 429 429 429
 ```
 
+The 429s are logged by the starter's handler, for example:
+
+```json
+{"timestamp": "2026-11-10T23:19:37+00:00", "creator_id": "flood_tester", "event": "rejected", "status": "rejected", "reason": "rate_limited", "limit": "10 per 1 minute"}
 ```
+
+Full output: `results/flood_2026-11-10_1719.md`.
 
 ---
 
