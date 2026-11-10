@@ -1,0 +1,362 @@
+[
+  {
+    "trial": 1,
+    "appeals": [
+      {
+        "content_id": "15bd53d9-0868-43e5-a3e9-8e4fe60e5d17",
+        "http": 200,
+        "body": {
+          "content_id": "15bd53d9-0868-43e5-a3e9-8e4fe60e5d17",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "1dd27587-ce35-4139-97d8-81ec4afde65b",
+        "http": 200,
+        "body": {
+          "content_id": "1dd27587-ce35-4139-97d8-81ec4afde65b",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "601fb252-e9fe-4ec5-8972-1cae5344af25",
+        "http": 200,
+        "body": {
+          "content_id": "601fb252-e9fe-4ec5-8972-1cae5344af25",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "2a4b529d-f24d-4edd-87f0-2ce4df6d2297",
+        "http": 200,
+        "body": {
+          "content_id": "2a4b529d-f24d-4edd-87f0-2ce4df6d2297",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "9bcc8d83-ab4c-4296-b9d7-b5a2f72fe798",
+        "http": 200,
+        "body": {
+          "content_id": "9bcc8d83-ab4c-4296-b9d7-b5a2f72fe798",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "f671db5b-6842-4dc4-a45d-8f61579e88aa",
+        "http": 200,
+        "body": {
+          "content_id": "f671db5b-6842-4dc4-a45d-8f61579e88aa",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "437a0a3f-f749-44c9-9d29-d4788526b063",
+        "http": 200,
+        "body": {
+          "content_id": "437a0a3f-f749-44c9-9d29-d4788526b063",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "37e69fa2-ab60-4ff8-9cfe-dfc3391ec401",
+        "http": 200,
+        "body": {
+          "content_id": "37e69fa2-ab60-4ff8-9cfe-dfc3391ec401",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "4840b894-fbce-4982-925a-133fbefbcdb5",
+        "http": 200,
+        "body": {
+          "content_id": "4840b894-fbce-4982-925a-133fbefbcdb5",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "d6f05d4e-7967-42f6-aaca-ba5b47f758ba",
+        "http": 200,
+        "body": {
+          "content_id": "d6f05d4e-7967-42f6-aaca-ba5b47f758ba",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      }
+    ],
+    "extras": {
+      "json_list_http": 400,
+      "non_json_http": 400,
+      "json_list_body": {
+        "error": "invalid_json",
+        "message": "Send a JSON object with text and creator_id."
+      },
+      "non_json_body": {
+        "error": "invalid_json",
+        "message": "Send a JSON object with text and creator_id."
+      }
+    },
+    "appeals_ok": 10,
+    "unknown_id_http": 404,
+    "empty_reasoning_http": 400
+  },
+  {
+    "trial": 2,
+    "appeals": [
+      {
+        "content_id": "973c3cbf-14f2-4fa7-94de-fc72dcdc400b",
+        "http": 200,
+        "body": {
+          "content_id": "973c3cbf-14f2-4fa7-94de-fc72dcdc400b",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "7b4d1cb7-511e-4f9c-8be8-302b82262162",
+        "http": 200,
+        "body": {
+          "content_id": "7b4d1cb7-511e-4f9c-8be8-302b82262162",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "cc98b4af-e135-4820-84dd-332c5a6e5ef1",
+        "http": 200,
+        "body": {
+          "content_id": "cc98b4af-e135-4820-84dd-332c5a6e5ef1",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "f97882d0-f7f4-4e2d-a9bb-3c745150522c",
+        "http": 200,
+        "body": {
+          "content_id": "f97882d0-f7f4-4e2d-a9bb-3c745150522c",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "5d26dc12-063b-4edb-b173-2561ef0f4b6e",
+        "http": 200,
+        "body": {
+          "content_id": "5d26dc12-063b-4edb-b173-2561ef0f4b6e",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "24b41f17-607b-48a5-9bef-c3a8661d696a",
+        "http": 200,
+        "body": {
+          "content_id": "24b41f17-607b-48a5-9bef-c3a8661d696a",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "2b259186-68a7-4a3a-ae56-07c4a83d7c9d",
+        "http": 200,
+        "body": {
+          "content_id": "2b259186-68a7-4a3a-ae56-07c4a83d7c9d",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "b65d1b94-21ab-4341-aba7-d3244ebd785c",
+        "http": 200,
+        "body": {
+          "content_id": "b65d1b94-21ab-4341-aba7-d3244ebd785c",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "ad425e44-06cf-4ec6-bb53-b0388e9386c8",
+        "http": 200,
+        "body": {
+          "content_id": "ad425e44-06cf-4ec6-bb53-b0388e9386c8",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "f4014b07-97ee-48a5-8c6f-50f4c28e4d87",
+        "http": 200,
+        "body": {
+          "content_id": "f4014b07-97ee-48a5-8c6f-50f4c28e4d87",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      }
+    ],
+    "extras": {
+      "json_list_http": 400,
+      "non_json_http": 400,
+      "json_list_body": {
+        "error": "invalid_json",
+        "message": "Send a JSON object with text and creator_id."
+      },
+      "non_json_body": {
+        "error": "invalid_json",
+        "message": "Send a JSON object with text and creator_id."
+      }
+    },
+    "appeals_ok": 10,
+    "unknown_id_http": 404,
+    "empty_reasoning_http": 400
+  },
+  {
+    "trial": 3,
+    "appeals": [
+      {
+        "content_id": "5a9abbba-2fb6-4d15-b914-37683f579c6e",
+        "http": 200,
+        "body": {
+          "content_id": "5a9abbba-2fb6-4d15-b914-37683f579c6e",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "d4a34e13-d738-4d23-99c5-7648a3d05549",
+        "http": 200,
+        "body": {
+          "content_id": "d4a34e13-d738-4d23-99c5-7648a3d05549",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "d1bf289b-c047-448e-b9eb-12a72bad4de4",
+        "http": 200,
+        "body": {
+          "content_id": "d1bf289b-c047-448e-b9eb-12a72bad4de4",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "83ed79ac-6e0f-449a-8275-5790487e79e7",
+        "http": 200,
+        "body": {
+          "content_id": "83ed79ac-6e0f-449a-8275-5790487e79e7",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "7cbfc649-52f2-44af-ba23-18f63f7a2da9",
+        "http": 200,
+        "body": {
+          "content_id": "7cbfc649-52f2-44af-ba23-18f63f7a2da9",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "40209ce5-c2a5-4c64-9810-fafceda6a808",
+        "http": 200,
+        "body": {
+          "content_id": "40209ce5-c2a5-4c64-9810-fafceda6a808",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "a799166c-5068-4e72-ad94-744342c1f5e5",
+        "http": 200,
+        "body": {
+          "content_id": "a799166c-5068-4e72-ad94-744342c1f5e5",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "ddafdc01-61cb-430b-8b4b-56b662bb5d1d",
+        "http": 200,
+        "body": {
+          "content_id": "ddafdc01-61cb-430b-8b4b-56b662bb5d1d",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "709009af-b9fe-41e5-9c91-48fb3bec4a17",
+        "http": 200,
+        "body": {
+          "content_id": "709009af-b9fe-41e5-9c91-48fb3bec4a17",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      },
+      {
+        "content_id": "655cc665-8ff1-4775-b343-daa18371c455",
+        "http": 200,
+        "body": {
+          "content_id": "655cc665-8ff1-4775-b343-daa18371c455",
+          "message": "Thanks - your appeal is recorded and this piece is now under review by a person.",
+          "status": "under_review"
+        },
+        "logged": true
+      }
+    ],
+    "extras": {
+      "json_list_http": 400,
+      "non_json_http": 400,
+      "json_list_body": {
+        "error": "invalid_json",
+        "message": "Send a JSON object with text and creator_id."
+      },
+      "non_json_body": {
+        "error": "invalid_json",
+        "message": "Send a JSON object with text and creator_id."
+      }
+    },
+    "appeals_ok": 10,
+    "unknown_id_http": 404,
+    "empty_reasoning_http": 400
+  }
+]

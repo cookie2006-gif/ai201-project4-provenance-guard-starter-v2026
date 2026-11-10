@@ -255,38 +255,48 @@ whose work got caught by it:
 
 <!-- Your five criteria across three trials. `run_eval.py --label before`. -->
 
+All numbers below are from `python run_eval.py --label before` and `python run_criteria_extra.py --label before` (`results/run_2026-11-10_1723_before.md`, `results/extra_2026-11-10_1723_before.json`). Three trials, nothing changed in between; every trial was identical, as expected, since neither signal is random.
+
+> **Important caveat on criterion 1.** `criteria.md` says "10 pieces I wrote myself". The ten pieces in `scenarios.py` were **drafted by Claude at my request** (I did not have time to supply my own), in an ordinary human voice and with some plain, conventional ones on purpose. So criterion 1's verdict is weaker evidence than it should be, and should be re-run on my own writing. I did not edit the criterion.
+
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Own writing labelled AI | at most 1 of 10 | 2/10 | 2/10 | 2/10 | **MISSED** |
+| 2. Score spread, AI vs human | mean gap >= 0.25 and every clearly-AI > 0.5 | gap 0.547, min AI 0.775 | same | same | **MET** |
+| 3. Labels reachable; borderline lands in "unsure" | 3 of 3 labels; >= 3 of 5 borderline unsure | 3/3 labels; 4/5 | 3/3; 4/5 | 3/3; 4/5 | **MET** |
+| 4. Appeals change status and are logged | 10 of 10 (404 unknown id, 400 empty reasoning) | 10/10, 404, 400 | 10/10, 404, 400 | 10/10, 404, 400 | **MET** |
+| 5. Bad input: 0 crashes across 8 bodies | 8 of 8 are 4xx JSON, no 500 | 8/8 | 8/8 | 8/8 | **MET** |
 
-**Real output from one trial**, pasted as text, naming the file and function
-that produced it:
+How I decided: criterion 1's target is at most 1 and every trial came out 2, so it is a miss with no generous reading. Criterion 3's second half needs 3 of 5; I got 4 of 5 each time. Criterion 2 is met by a wide margin, but note the weakest AI text (0.775) is only 0.075 above the AI threshold, so my target was fairly easy on that side and I'd tighten it to "every clearly-AI sample above 0.75 and mean gap above 0.4".
+
+**Real output, one trial each (from `run_eval.py::main` calling `app.py::submit`; appeals from `run_criteria_extra.py::trial` calling `app.py::appeal`)**
+
+Criterion 1, the two pieces called AI (`scenarios.py::OWN_WRITING` #6 and #10):
 
 ```json
-
+{"status": 200, "guess": "ai", "confidence": 0.7054, "model_score": 0.7361, "style_score": 0.6679, "sent": "To make the sauce, start by chopping an onion and cooking it in oil until it is soft..."}
+{"status": 200, "guess": "ai", "confidence": 0.7138, "model_score": 0.8032, "style_score": 0.6046, "sent": "My town has one main street with a bakery, a hardware store and a diner that has been open since the seventies..."}
 ```
+
+Criterion 2: clearly-AI scored 0.822, 0.849, 0.775, 0.810, 0.841 (mean 0.819); clearly-human scored 0.268, 0.398, 0.214, 0.336, 0.146 (mean 0.272).
+
+Criterion 3: the borderline set gave `unsure` ×4 and one `ai` (0.7124, the social media paragraph); the human label was reached by "clearly human" (0.2684) and the AI label by "clearly AI" (0.822).
+
+Criterion 4:
+
+```json
+{"content_id": "...", "http": 200, "body": {"message": "Thanks - your appeal is recorded and this piece is now under review by a person.", "status": "under_review"}, "logged": true}
+```
+Unknown id -> 404, empty reasoning -> 400, in all three trials.
+
+Criterion 5: `{"creator_id": ...}` (no text), empty `creator_id`, empty text, whitespace text, number text, null text, a JSON list and a non-JSON body each returned 400 with `{"error": ..., "message": ...}`; a 150,000-character text returned 413. No 500s.
 
 **Diagnoses**
 
-<!-- For each miss AND each broken attack: the stage and the mechanism.
-
-     Your service has five stages: the route, signal one, signal two, the
-     combining rule, and the label mapping.
-
-     Not a diagnosis:  "The evasion attacks got through."
-     A diagnosis:      "Four evasion inputs got through. All four had typos
-                        added to AI-generated text. My second signal measures
-                        word variety, and typos raise word variety — so it read
-                        them as more human. My combining rule weights that
-                        signal at 0.6, so it dragged the whole score down."
-
-     Look for a pattern. Five failures on one signal is one problem, not five. -->
-
-
+- **Criterion 1 (MISSED): stage = signals one and two together, then the combining rule.** The two flagged pieces are the recipe (#6) and the plain town description (#10). Both are short, plain declarative sentences of similar length with only commas and full stops. Signal one found them predictable (0.74 and 0.80: instructions and "a bakery, a hardware store" are very common word sequences for GPT-2). Signal two scored them 0.67 and 0.60 because sentence-length spread is low and they have none of the expressive punctuation it treats as human. Because both signals have the same blind spot (plain, conventional prose), they agree, the disagreement shrink in `scoring.py::combine_signals` never fires, and the average (0.705 and 0.714) lands just over the 0.70 threshold. The mechanism is that "plain" and "AI" look the same to both of my signals. Several other plain pieces (#2 garage 0.60, #8 novel 0.68) also sit just under the line.
+- **Criterion 3's one borderline miss:** the social media paragraph (0.7124) is flagged AI for the same reason: even sentences, no expressive punctuation, generic topic.
+- **Pattern:** one problem, not three: plain prose scores in the high 0.6s to low 0.7s from both signals, and my AI threshold (0.70) sits inside that band, while my weakest clearly-AI text is 0.775. There is a thin margin to work with, not a gap.
+- **No miss on criteria 2, 4, 5.** Stability: all three trials were identical, so nothing in the pipeline is unstable.
 
 ---
 
